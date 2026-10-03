@@ -1,0 +1,44 @@
+const mongoose = require("mongoose");
+
+const adminSchema = new mongoose.Schema(
+    {
+        name: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        email: {
+            type: String,
+            required: true,
+            unique: true,
+            lowercase: true,
+            trim: true
+        },
+        password: {
+            type: String,
+            required: true,
+            minlength: 6,
+            select: false  // don't return password in queries by default
+        },
+        role: {
+            type: String,
+            default: "admin"
+        }
+    },
+    { timestamps: true }
+);
+
+module.exports = mongoose.model("Admin", adminSchema);
+
+
+/*
+{
+    "success": true,
+    "message": "Admin registered successfully",
+    "data": {
+        "id": "6abcdb3efdd09ee4db072c6b",
+        "name": "Admin User",
+        "email": "admin@example.com",
+        "role": "admin"
+    }
+}*/
